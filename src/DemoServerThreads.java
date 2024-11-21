@@ -1,3 +1,5 @@
+package src;
+
 public class DemoServerThreads extends Thread{
 
     DemoServerSidePlayer player1;

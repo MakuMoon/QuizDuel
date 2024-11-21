@@ -1,4 +1,4 @@
-package Demo;
+package src.resultat_gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class RedondearImagen {
         frame.setVisible(true);
     }
 
-    static BufferedImage getRoundedImage(BufferedImage originalImage) {
+    public static BufferedImage getRoundedImage(BufferedImage originalImage) {
         int diameter = Math.min(originalImage.getWidth(), originalImage.getHeight());
         BufferedImage roundedImage = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
 

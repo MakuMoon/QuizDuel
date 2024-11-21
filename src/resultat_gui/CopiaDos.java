@@ -1,4 +1,4 @@
-package Demo;
+package src.resultat_gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -7,12 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static Demo.RedondearImagen.getRoundedImage;
+import static src.resultat_gui.RedondearImagen.getRoundedImage;
 
 public class CopiaDos extends JFrame {
     // Carga la imagen original
-    BufferedImage originalImage1 = ImageIO.read(new File("GroupProject/src/RandomImage/imagen1.png"));
-    BufferedImage originalImage2 = ImageIO.read(new File("GroupProject/src/RandomImage/imagen6.png"));
+    BufferedImage originalImage1 = ImageIO.read(new File("src/resultat_gui/RandomImage/imagen1.png"));
+    BufferedImage originalImage2 = ImageIO.read(new File("src/resultat_gui/RandomImage/imagen2.png"));
     // Crea un version redonda de la imagen
     ImageIcon roundIcon1 = new ImageIcon(getRoundedImage(originalImage1));
     ImageIcon roundIcon2 = new ImageIcon(getRoundedImage(originalImage2));
