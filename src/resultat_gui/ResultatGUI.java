@@ -1,7 +1,5 @@
 package resultat_gui;
 
-import src.Kategori;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +17,7 @@ public class ResultatGUI extends JFrame {
     ArrayList <Integer> trueTable = new ArrayList<>();
     ArrayList <Integer> opponentsTrueTable = new ArrayList<>();
 
-    public ResultatGUI(int pointsPlayer1, int pointsPlayer2, boolean yourTurn, ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) throws IOException {
+    public ResultatGUI(int pointsPlayer1, int pointsPlayer2, boolean yourTurn, ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) {
         this.pointsPlayer1 = pointsPlayer1;
         this.pointsPlayer2 = pointsPlayer2;
         this.yourTurn = yourTurn;
@@ -48,7 +46,7 @@ public class ResultatGUI extends JFrame {
     }
 
 
-    private JPanel createNorthPanel(Boolean yourTurn) throws IOException {
+    private JPanel createNorthPanel(Boolean yourTurn) {
         JPanel panelNorth = new JPanel(new BorderLayout());
 
         panelNorth.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -127,9 +125,12 @@ public class ResultatGUI extends JFrame {
         playButton.addActionListener(l -> {
             if (l.getSource() == playButton) {
                 // Spelet börjar här.
-                JOptionPane.showMessageDialog(null, "Spela");
-                //När man trycker på denna knapp poppar upp kategori fönstret.
-                Kategori kategori = new Kategori();
+
+                
+                this.dispose();
+
+                new Kategori();
+
 
             }
         });
@@ -151,10 +152,16 @@ public class ResultatGUI extends JFrame {
     }
 
     // Läser en ImagePath och sedan omvandlar den till ImageIcon och skickar en JLabel icon.
-    private JLabel createRoundedImageLabel(String imagePath) throws IOException {
+    private JLabel createRoundedImageLabel(String imagePath) {
+        JLabel label = null;
+        try{
         BufferedImage image = ImageIO.read(new File(imagePath));
         ImageIcon icon = new ImageIcon(getCircleImage1(image));
-        return new JLabel(icon);
+        label = new JLabel(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return label;
     }
 
     public static void main(String[] args) throws IOException {

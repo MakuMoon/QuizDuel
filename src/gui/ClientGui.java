@@ -1,4 +1,4 @@
-package src.gui;
+package gui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -25,10 +25,10 @@ public class ClientGui extends JFrame implements ActionListener {
     List<JButton> buttonList = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
-        ClientGui clientGui = new ClientGui();
+
     }
 
-    public ClientGui() throws Exception {
+    public ClientGui(String category) throws Exception {
         setupPanels();
         configureMainPanel();
         setUpMainPanel();
