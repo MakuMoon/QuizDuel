@@ -57,6 +57,13 @@ public class DataBaseConnection {
             System.out.println("Error: " + e.getMessage());
         }
 
+        Collections.shuffle(questions);
+
+        //only keep the first three questions
+        if (questions.size() > 3) {
+            questions = new ArrayList<>(questions.subList(0, 3));
+        }
+
         return questions;
     }
 
@@ -140,10 +147,5 @@ public class DataBaseConnection {
         }
         return questions;
     }
-
-    public static void main(String[] args) {
-        DataBaseConnection db = new DataBaseConnection();
-
-        System.out.println(db.getQuestions("Vehicles"));
-    }
+    
 }

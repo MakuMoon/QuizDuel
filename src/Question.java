@@ -34,4 +34,14 @@ public class Question {
     public ArrayList<String> getAnswers() {
         return answers;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "category='" + category + '\'' +
+                ", question='" + question + '\'' +
+                ", correct_answer='" + correct_answer + '\'' +
+                ", answers=" + answers +
+                '}';
+    }
 }
