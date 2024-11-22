@@ -1,3 +1,5 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,11 +45,7 @@ public class Kategori {
                 }
             });
         }
-
-
         frame.add(panel);
-
-
         frame.setVisible(true);
     }
 }
