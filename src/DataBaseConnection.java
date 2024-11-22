@@ -31,6 +31,37 @@ public class DataBaseConnection {
         }
     }
 
+    public ArrayList<Question> getQuestions(String category) {
+        ArrayList<Question> questions = new ArrayList<>();
+        String sql = "SELECT * FROM questions WHERE category = '" + category + "'";
+
+        try {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String question = rs.getString("question");
+                String correctAnswer = rs.getString("correct_answer");
+                String answersString = rs.getString("answer");
+                String[] answers = answersString.split(",");
+
+                ArrayList<String> answersList = new ArrayList<>();
+                for (String answer : answers) {
+                    answersList.add(answer);
+                }
+
+                Question q = new Question(category, question, correctAnswer, answersList);
+                questions.add(q);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return questions;
+    }
+
+
+
     public void loadQuestions() {
         String url = "https://opentdb.com/api.php?amount=100&type=multiple";
 
@@ -92,7 +123,7 @@ public class DataBaseConnection {
 
 
             ArrayList<String> answers = new ArrayList<>();
-            answers.add(correctAnswer); // Add correct answer first
+            answers.add(correctAnswer);
             JsonNode incorrectAnswersNode = node.path("incorrect_answers");
             for (JsonNode answerNode : incorrectAnswersNode) {
                 answers.add(answerNode.asText());
@@ -112,6 +143,7 @@ public class DataBaseConnection {
 
     public static void main(String[] args) {
         DataBaseConnection db = new DataBaseConnection();
-        db.loadQuestions();
+
+        System.out.println(db.getQuestions("Vehicles"));
     }
 }
