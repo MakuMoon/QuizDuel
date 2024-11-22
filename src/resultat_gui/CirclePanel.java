@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class CirclePanel extends JPanel {
     private Color color = Color.gray;
-    //private Image icon = null;
 
     // Tamaño del circulo
     public CirclePanel(){
@@ -38,9 +37,7 @@ public class CirclePanel extends JPanel {
             default:
                 color = Color.GRAY;
                 //icon = null;
-                // No se si esto va aqui o en la de abajo.
                 repaint();
         }
     }
 }
-
