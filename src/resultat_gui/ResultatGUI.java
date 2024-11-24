@@ -1,6 +1,6 @@
 package src.resultat_gui;
 
-import src.Kategori;
+import gui.client.Kategori;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -63,9 +63,9 @@ public class ResultatGUI extends JFrame {
 
         panelCenter.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        CirclePanelMiddle[] circlesInMiddle = new CirclePanelMiddle[6];
+        src.resultat_gui.CirclePanelMiddle[] circlesInMiddle = new src.resultat_gui.CirclePanelMiddle[6];
         for (int i = 0; i < circlesInMiddle.length; i++) {
-            circlesInMiddle[i] = new CirclePanelMiddle();
+            circlesInMiddle[i] = new src.resultat_gui.CirclePanelMiddle();
             panelCenter.add(circlesInMiddle[i]);
             circlesInMiddle[i].setNumber(i);
 
@@ -82,7 +82,7 @@ public class ResultatGUI extends JFrame {
         sidePanel.setPreferredSize(new Dimension(120, 0));
 
         for (int i = 0; i < rows * cols; i++) {
-            sidePanel.add(new CirclePanel());
+            sidePanel.add(new src.resultat_gui.CirclePanel());
         }
 
         return sidePanel;
