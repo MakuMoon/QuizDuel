@@ -44,7 +44,7 @@ public class Kategori {
 
                     try {
                         frame.dispose();
-                        ClientGui clientGui = new ClientGui(category);
+                        new ClientGui(category);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

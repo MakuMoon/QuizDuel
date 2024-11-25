@@ -136,13 +136,12 @@ public class ClientGui extends JFrame implements ActionListener {
 
                 SaveResult saveResult = new SaveResult();
 
-                saveResult.saveQuestionRound(roundResult);
-
-                SaveResult saveResults = new SaveResult();
+                saveResult.saveQuestionRound(roundResult, true);
 
 
-                ArrayList<Integer> trueTable = saveResults.readResult(true);
-                ArrayList<Integer> opponentsTrueTable = saveResults.readResult(false);
+
+                ArrayList<Integer> trueTable = saveResult.readResult(true);
+                ArrayList<Integer> opponentsTrueTable = saveResult.readResult(false);
 
                 this.dispose();
                 new ResultatGUI(0,0, true, trueTable, opponentsTrueTable);

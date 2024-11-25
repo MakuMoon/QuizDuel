@@ -6,11 +6,12 @@ import java.util.ArrayList;
 public class SaveResult {
 
     public static void main(String[] args) {
-        SaveResult saveResult = new SaveResult();
+        new SaveResult();
     }
 
     public SaveResult() {
-        createFile();
+
+
 
 
     }
@@ -75,16 +76,77 @@ public class SaveResult {
     }
 
 
-    public void saveQuestionRound(ArrayList<Integer> roundResult) {
+    public void saveQuestionRound(ArrayList<Integer> roundResult, boolean isPlayer1) {
 
-        try (BufferedReader br = new BufferedReader(new FileReader("src/resultat_gui/result.txt"))) {
 
+            ArrayList<Integer> trueTable;
+            ArrayList<Integer> opponentsTrueTable;
+
+            trueTable = readResult(true);
+            opponentsTrueTable = readResult(false);
+
+            int countNegativeOne = 0;
+
+            if (isPlayer1) {
+                for (int i = 0; i < trueTable.size(); i++) {
+
+                    if (trueTable.get(i) == -1){
+                        trueTable.set(i, roundResult.get(countNegativeOne));
+                        countNegativeOne++;
+
+                        if (countNegativeOne == 3) {
+                            break;
+                        }
+                    }
+
+                }
+
+                writeToFile(trueTable, opponentsTrueTable);
+
+            }
+            
+            //TODO: Fix this
+            else{
+                for (int i = 0; i < opponentsTrueTable.size(); i++) {
+
+                    if (opponentsTrueTable.get(i) == -1){
+                        opponentsTrueTable.set(i, roundResult.get(countNegativeOne));
+                        countNegativeOne++;
+
+                        if (countNegativeOne == 3) {
+                            break;
+                        }
+                    }
+
+                }
+
+                writeToFile(trueTable, opponentsTrueTable);
+            }
+
+
+
+
+    }
+
+
+    private void writeToFile(ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) {
+        try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter("src/resultat_gui/result.txt"))) ) {
+
+            for (int i = 0; i < trueTable.size(); i++) {
+                printWriter.write(trueTable.get(i) + ",");
+            }
+            printWriter.write("\n");
+
+            printWriter.write("-x-");
+            printWriter.write("\n");
+
+            for (int i = 0; i < opponentsTrueTable.size(); i++) {
+                printWriter.write(opponentsTrueTable.get(i) + ",");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
 

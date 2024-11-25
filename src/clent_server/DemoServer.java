@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 public class DemoServer {
 
     public static void main(String[] args) throws IOException {
-        ServerSocket listener = new ServerSocket(24501);
+        ServerSocket listener = new ServerSocket(24502);
         System.out.println("Server is running...");
 
         try {

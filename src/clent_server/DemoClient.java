@@ -1,5 +1,8 @@
 package clent_server;
 
+import resultat_gui.ResultatGUI;
+import resultat_gui.SaveResult;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +11,7 @@ import java.net.Socket;
 
 public class DemoClient {
 
-    private static final int PORT = 24500;
+    private static final int PORT = 24502;
     Socket socket;
     private BufferedReader in;
     private PrintWriter out;
@@ -27,6 +30,8 @@ public class DemoClient {
 
         try {
             DemoClient client = new DemoClient("localhost");
+
+
             while (true) {
                 client.play();
             }
@@ -40,6 +45,8 @@ public class DemoClient {
 
         String response;
 
+        //SaveResult saveResult = new SaveResult();
+        //new ResultatGUI(0, 0, true, saveResult.readResult(true), saveResult.readResult(false));
 
 
         response = in.readLine();
