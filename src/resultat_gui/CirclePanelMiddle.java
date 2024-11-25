@@ -1,4 +1,4 @@
-package resultat_gui;
+package src.resultat_gui;
 
 import javax.swing.*;
 import java.awt.*;

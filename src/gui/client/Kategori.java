@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/gui/client/Kategori.java
 package gui.client;
-========
-package resultat_gui;
->>>>>>>> logik-för-spel:src/resultat_gui/Kategori.java
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Kategori {
-    public Kategori() {
+    public static void main(String[] args) {
 
         JFrame frame = new JFrame("Välj en kategori");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,14 +41,7 @@ public class Kategori {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-                    try {
-                        frame.dispose();
-                        gui.ClientGui clientGui = new gui.ClientGui(category);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
+                    JOptionPane.showMessageDialog(frame, "Du valde kategorin: " + category);
                 }
             });
         }

@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class DemoClient {
 
-    private static final int PORT = 24502;
+    private static final int PORT = 24500;
     Socket socket;
     private BufferedReader in;
     private PrintWriter out;
