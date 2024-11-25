@@ -1,4 +1,4 @@
-package src.resultat_gui;
+package resultat_gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +10,12 @@ public class CirclePanel extends JPanel {
     public CirclePanel(){
         this.setPreferredSize(new Dimension(40,40));
     }
+
+    public CirclePanel(String state){
+        this.setPreferredSize(new Dimension(40,40));
+        setState(state);
+    }
+
 
     @Override
     protected void paintComponent(Graphics g){
