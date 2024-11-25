@@ -1,6 +1,7 @@
 package gui.client;
 
 import model.Question;
+import db.DataBaseConnection;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -8,58 +9,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ClientGui extends JFrame implements ActionListener {
 
-    private JPanel gamePanel = new JPanel();
-    private JPanel mainPanel = new JPanel();
-    private JPanel upperPanel = new JPanel();
-    private JPanel lowerPanel = new JPanel();
-    private JLabel quizQuestionLabel = new JLabel("", JLabel.CENTER);
-    private JButton continueButton = new JButton("Fortsätt");
+    DataBaseConnection dataBaseConnection = new DataBaseConnection();
+
+    private final JPanel gamePanel = new JPanel();
+    private final JPanel mainPanel = new JPanel();
+    private final JPanel upperPanel = new JPanel();
+    private final JPanel lowerPanel = new JPanel();
+    private final JLabel quizQuestionLabel = new JLabel("", JLabel.CENTER);
+    private final JButton continueButton = new JButton("Fortsätt");
     private int currentQuestionIndex = 0;
     private int maxGamePlays = 3;
 
-    ArrayList<Question> quizQuestionList = new ArrayList<>();
+    ArrayList<Question> quizQuestionList;
     ArrayList<QuizButton> buttonList = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
-        ClientGui clientGui = new ClientGui();
+        ClientGui clientGui = new ClientGui("Sports");
     }
 
-    //Temporär metod för att lägga in frågor
-    public void setUpQuizQuestions() {
-
-        String correctAnswer1 = "Orange";
-        String correctAnswer2 = "Avocado";
-        String correctAnswer3 = "Jordgubb";
-
-        ArrayList<String> answers1 = new ArrayList<>();
-        answers1.add(correctAnswer1);
-        answers1.add("Blå");
-        answers1.add("Röd");
-        answers1.add("Lila");
-
-        ArrayList<String> answers2 = new ArrayList<>();
-        answers2.add(correctAnswer2);
-        answers2.add("Broccoli");
-        answers2.add("Morot");
-        answers2.add("Vitkål");
-
-        ArrayList<String> answers3 = new ArrayList<>();
-        answers3.add(correctAnswer3);
-        answers3.add("Blåbär");
-        answers3.add("Päron");
-        answers3.add("Kiwi");
-
-        quizQuestionList.add(new Question("Frukt & Grönt", "Vad har en apelsin för färg?", correctAnswer1, answers1));
-        quizQuestionList.add(new Question("Frukt & Grönt", "Vad är inte en grönsak?", correctAnswer2, answers2));
-        quizQuestionList.add(new Question("Frukt & Grönt", "Vilken frukt är röd?", correctAnswer3, answers3));
-    }
-
-    public ClientGui() throws Exception {
-        setUpQuizQuestions();
+    public ClientGui(String category) throws Exception {
+        quizQuestionList = dataBaseConnection.getQuestions(category);
         setupPanels();
         configureMainPanel();
         setUpMainPanel();
