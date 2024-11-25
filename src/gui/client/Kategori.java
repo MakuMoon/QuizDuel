@@ -18,7 +18,7 @@ public class Kategori {
         panel.setLayout(new GridLayout(2, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        String[] categories = {"Sport", "Geografi", "Musik"};
+        String[] categories = {"Sports", "Vehicles", "History"};
         String[] imagePaths = {
                 "sport.png",      // Bild för Sport
                 "geography.png",  // Bild för Geografi
@@ -54,5 +54,6 @@ public class Kategori {
         }
         frame.add(panel);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 }

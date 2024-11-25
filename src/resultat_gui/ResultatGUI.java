@@ -17,8 +17,8 @@ public class ResultatGUI extends JFrame {
     private int pointsPlayer1;
     private int pointsPlayer2;
     private boolean yourTurn;
-    ArrayList <Integer> trueTable = new ArrayList<>();
-    ArrayList <Integer> opponentsTrueTable = new ArrayList<>();
+    ArrayList<Integer> trueTable;
+    ArrayList<Integer> opponentsTrueTable;
 
     public ResultatGUI(int pointsPlayer1, int pointsPlayer2, boolean yourTurn, ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) {
         this.pointsPlayer1 = pointsPlayer1;
@@ -110,8 +110,7 @@ public class ResultatGUI extends JFrame {
                 sidePanel.add(new CirclePanel("Correct"));
             } else if (trueTable.get(i) == 0) {
                 sidePanel.add(new CirclePanel("Incorrect"));
-            }
-            else {
+            } else {
                 sidePanel.add(new CirclePanel("Not Answered"));
             }
         }
@@ -157,7 +156,7 @@ public class ResultatGUI extends JFrame {
     // Läser en ImagePath och sedan omvandlar den till ImageIcon och skickar en JLabel icon.
     private JLabel createRoundedImageLabel(String imagePath) {
         JLabel label = null;
-        try{
+        try {
             BufferedImage image = ImageIO.read(new File(imagePath));
             ImageIcon icon = new ImageIcon(getCircleImage1(image));
             label = new JLabel(icon);
@@ -168,53 +167,13 @@ public class ResultatGUI extends JFrame {
     }
 
     public static void main(String[] args) throws IOException {
-        ArrayList<Integer> trueTable = new ArrayList<>();
-        ArrayList<Integer> opponentsTrueTable = new ArrayList<>();
 
 
-        trueTable.add(1);
-        trueTable.add(0);
-        trueTable.add(1);
+        SaveResult saveResults = new SaveResult();
 
-        trueTable.add(-1);
-        trueTable.add(-1);
-        trueTable.add(-1);
+        ArrayList<Integer> trueTable = saveResults.readResult(true);
+        ArrayList<Integer> opponentsTrueTable = saveResults.readResult(false);
 
-        trueTable.add(-1);
-        trueTable.add(-1);
-        trueTable.add(-1);
-
-        trueTable.add(-1);
-        trueTable.add(-1);
-        trueTable.add(-1);
-
-        trueTable.add(-1);
-        trueTable.add(-1);
-        trueTable.add(-1);
-
-        trueTable.add(-1);
-        trueTable.add(-1);
-        trueTable.add(-1);
-
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-        opponentsTrueTable.add(-1);
-
-        new ResultatGUI(5, 1, true, trueTable, trueTable);
+        new ResultatGUI(0, 0, true, trueTable, opponentsTrueTable);
     }
 }

@@ -2,6 +2,9 @@ package gui.client;
 
 import model.Question;
 import db.DataBaseConnection;
+import resultat_gui.ResultatGUI;
+import resultat_gui.SaveResult;
+
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -25,12 +28,14 @@ public class ClientGui extends JFrame implements ActionListener {
 
     ArrayList<Question> quizQuestionList;
     ArrayList<QuizButton> buttonList = new ArrayList<>();
+    ArrayList<Integer> roundResult;
 
     public static void main(String[] args) throws Exception {
         ClientGui clientGui = new ClientGui("Sports");
     }
 
     public ClientGui(String category) throws Exception {
+        roundResult = new ArrayList<>();
         quizQuestionList = dataBaseConnection.getQuestions(category);
         setupPanels();
         configureMainPanel();
@@ -128,7 +133,20 @@ public class ClientGui extends JFrame implements ActionListener {
             currentQuestionIndex++;
 
             if (currentQuestionIndex >= maxGamePlays) {
-                //Ändra så att spelet avslutas
+
+                SaveResult saveResult = new SaveResult();
+
+                saveResult.saveQuestionRound(roundResult);
+
+                SaveResult saveResults = new SaveResult();
+
+
+                ArrayList<Integer> trueTable = saveResults.readResult(true);
+                ArrayList<Integer> opponentsTrueTable = saveResults.readResult(false);
+
+                this.dispose();
+                new ResultatGUI(0,0, true, trueTable, opponentsTrueTable);
+
                 return;
             } else {
                 addButtonsToGamePanel();
@@ -139,9 +157,11 @@ public class ClientGui extends JFrame implements ActionListener {
         if (returnAnswerTrueOrFalse(clickedButtonText)) {
             clickedButton.setBackground(Color.GREEN);
             addContinueButton(clickedButtonText);
+            roundResult.add(1);
         } else {
             clickedButton.setBackground(Color.RED);
             addContinueButton(clickedButtonText);
+            roundResult.add(0);
         }
     }
 
