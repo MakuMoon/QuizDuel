@@ -13,8 +13,8 @@ public class DemoClient {
 
     private static final int PORT = 24502;
     Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
+    public BufferedReader in;
+    public PrintWriter out;
 
     public DemoClient(String serverAddress) throws IOException {
         System.out.println(serverAddress);
@@ -31,10 +31,12 @@ public class DemoClient {
         try {
             DemoClient client = new DemoClient("localhost");
 
+            client.in.readLine();
+            SaveResult saveResult = new SaveResult();
+            saveResult.createFile();
+            new ResultatGUI(client, 0, 0, true, saveResult.readResult(true), saveResult.readResult(false));
 
-            while (true) {
-                client.play();
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -44,9 +46,6 @@ public class DemoClient {
     private void play() throws IOException {
 
         String response;
-
-        //SaveResult saveResult = new SaveResult();
-        //new ResultatGUI(0, 0, true, saveResult.readResult(true), saveResult.readResult(false));
 
 
         response = in.readLine();

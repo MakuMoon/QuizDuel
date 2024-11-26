@@ -1,5 +1,6 @@
 package gui.client;
 
+import clent_server.DemoClient;
 import model.Question;
 import db.DataBaseConnection;
 import resultat_gui.ResultatGUI;
@@ -30,11 +31,15 @@ public class ClientGui extends JFrame implements ActionListener {
     ArrayList<QuizButton> buttonList = new ArrayList<>();
     ArrayList<Integer> roundResult;
 
+    private DemoClient client;
+
     public static void main(String[] args) throws Exception {
-        ClientGui clientGui = new ClientGui("Sports");
     }
 
-    public ClientGui(String category) throws Exception {
+    public ClientGui(DemoClient client, String category) throws Exception {
+        this.client = client;
+
+
         roundResult = new ArrayList<>();
         quizQuestionList = dataBaseConnection.getQuestions(category);
         setupPanels();
@@ -144,7 +149,7 @@ public class ClientGui extends JFrame implements ActionListener {
                 ArrayList<Integer> opponentsTrueTable = saveResult.readResult(false);
 
                 this.dispose();
-                new ResultatGUI(0,0, true, trueTable, opponentsTrueTable);
+                new ResultatGUI(client,0,0, true, trueTable, opponentsTrueTable);
 
                 return;
             } else {

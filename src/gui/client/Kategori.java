@@ -1,12 +1,17 @@
 package gui.client;
 
+import clent_server.DemoClient;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Kategori {
-    public Kategori() {
+    private DemoClient client;
+    public Kategori(DemoClient client) {
+
+        this.client = client;
 
         JFrame frame = new JFrame("Välj en kategori");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,6 +22,7 @@ public class Kategori {
         panel.setBackground(new Color(173, 216, 230));
         panel.setLayout(new GridLayout(2, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
 
         String[] categories = {"Sports", "Vehicles", "History"};
         String[] imagePaths = {
@@ -44,7 +50,7 @@ public class Kategori {
 
                     try {
                         frame.dispose();
-                        new ClientGui(category);
+                        new ClientGui(client, category);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

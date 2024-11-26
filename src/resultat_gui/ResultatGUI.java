@@ -1,5 +1,6 @@
 package resultat_gui;
 
+import clent_server.DemoClient;
 import gui.client.Kategori;
 
 
@@ -19,8 +20,10 @@ public class ResultatGUI extends JFrame {
     private boolean yourTurn;
     ArrayList<Integer> trueTable;
     ArrayList<Integer> opponentsTrueTable;
+    DemoClient client;
 
-    public ResultatGUI(int pointsPlayer1, int pointsPlayer2, boolean yourTurn, ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) {
+    public ResultatGUI(DemoClient client, int pointsPlayer1, int pointsPlayer2, boolean yourTurn, ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) {
+        this.client = client;
         this.pointsPlayer1 = pointsPlayer1;
         this.pointsPlayer2 = pointsPlayer2;
         this.yourTurn = yourTurn;
@@ -134,7 +137,7 @@ public class ResultatGUI extends JFrame {
 
                 this.dispose();
 
-                new Kategori();
+                new Kategori(client);
 
 
             }
