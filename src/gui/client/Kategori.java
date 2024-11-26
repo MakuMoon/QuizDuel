@@ -38,12 +38,6 @@ public class Kategori {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(categories.toString());
-
-        for(String x: categories) {
-            System.out.println("Kategori: ");
-            System.out.println(x);
-        }
 
         for (int i = 0; i < categories.length; i++) {
             JButton button = new JButton(categories[i]);
@@ -62,6 +56,8 @@ public class Kategori {
                 public void actionPerformed(ActionEvent e) {
 
                     try {
+                        client.out.println(category);
+
                         frame.dispose();
                         new ClientGui(client, category);
                     } catch (Exception ex) {

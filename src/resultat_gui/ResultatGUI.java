@@ -15,12 +15,12 @@ import java.util.ArrayList;
 
 public class ResultatGUI extends JFrame {
 
-    private int pointsPlayer1;
-    private int pointsPlayer2;
-    private boolean yourTurn;
     ArrayList<Integer> trueTable;
     ArrayList<Integer> opponentsTrueTable;
     DemoClient client;
+    private int pointsPlayer1;
+    private int pointsPlayer2;
+    private boolean yourTurn;
 
     public ResultatGUI(DemoClient client, int pointsPlayer1, int pointsPlayer2, boolean yourTurn, ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) {
         this.client = client;
@@ -29,6 +29,7 @@ public class ResultatGUI extends JFrame {
         this.yourTurn = yourTurn;
         this.trueTable = trueTable;
         this.opponentsTrueTable = opponentsTrueTable;
+
 
         JPanel MainPanel = new JPanel(new BorderLayout());
         add(MainPanel);
@@ -128,20 +129,39 @@ public class ResultatGUI extends JFrame {
         JPanel panelSouth = new JPanel(new BorderLayout());
         panelSouth.setBorder(BorderFactory.createEmptyBorder(10, 120, 10, 120));
 
+        boolean checkYourTurn = false;
+        try {
+            //Server checks if it is your turn
+            checkYourTurn = Boolean.parseBoolean(client.in.readLine());
+
+            if (!checkYourTurn){
+                System.err.println("Server not sending correct turn");
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
         JButton playButton = new JButton("Spela");
         panelSouth.add(playButton, BorderLayout.SOUTH);
+        boolean finalCheckYourTurn = checkYourTurn;
         playButton.addActionListener(l -> {
             if (l.getSource() == playButton) {
                 // Spelet börjar här.
 
+                if (yourTurn || finalCheckYourTurn) {
 
-                this.dispose();
+                    System.out.println(client.toString());
+                    this.dispose();
 
-                new Kategori(client);
+                    new Kategori(client);
+                }
 
 
             }
         });
+
+
         return panelSouth;
     }
 

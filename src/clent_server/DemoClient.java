@@ -11,7 +11,7 @@ import java.net.Socket;
 
 public class DemoClient {
 
-    private static final int PORT = 24502;
+    private static final int PORT = 24503;
     Socket socket;
     public BufferedReader in;
     public PrintWriter out;
@@ -31,11 +31,15 @@ public class DemoClient {
         try {
             DemoClient client = new DemoClient("localhost");
 
-            client.in.readLine();
             SaveResult saveResult = new SaveResult();
             saveResult.createFile();
+
+            String response = client.in.readLine();
+            boolean isPlayer1 = Boolean.parseBoolean(response);
+
+            
             System.out.println("gui started");
-            new ResultatGUI(client, 0, 0, true, saveResult.readResult(true), saveResult.readResult(false));
+            new ResultatGUI(client, 0, 0, isPlayer1, saveResult.readResult(true), saveResult.readResult(false));
 
 
         } catch (IOException e) {

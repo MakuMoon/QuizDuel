@@ -1,5 +1,10 @@
 package clent_server;
 
+import db.DataBaseConnection;
+import model.Question;
+
+import java.util.ArrayList;
+
 public class DemoServerThreads extends Thread{
 
     DemoServerSidePlayer player1;
@@ -17,9 +22,34 @@ public class DemoServerThreads extends Thread{
     public void run() {
         System.out.println("Thread is running...");
 
-        player2.send("Sports,Vehicles,History");
+        player1.send("true");
+        player2.send("false");
 
-        while(true){}
+        player1.send("true");
+
+        player1.send("Sports,Vehicles,History");
+        System.out.println("Categories sent to player1");
+
+        String category = player1.receive();
+        System.out.println("Category received from player1: " + category);
+
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ArrayList<Question> questions = dataBaseConnection.getQuestions(category);
+
+        int i = 0;
+        for (Question question : questions) {
+            System.out.println("Fråga:"+i++);
+
+            player1.send(question.getQuestion());
+            player1.send(question.getAnswers().toString());
+            player1.send(question.getCorrectAnswer());
+        }
+
+        String answersDone = player1.receive();
+
+        player2.send(answersDone);
+
+        while (true) {}
 
 
     }
