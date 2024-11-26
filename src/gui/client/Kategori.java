@@ -24,20 +24,33 @@ public class Kategori {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
 
-        String[] categories = {"Sports", "Vehicles", "History"};
-        String[] imagePaths = {
-                "sport.png",      // Bild för Sport
-                "geography.png",  // Bild för Geografi
-                "music.png"       // Bild för Musik
-        };
 
+
+
+        String[] categories = new String[3];
+
+        try {
+
+            categories = client.in.readLine().split(",");
+
+
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(categories.toString());
+
+        for(String x: categories) {
+            System.out.println("Kategori: ");
+            System.out.println(x);
+        }
 
         for (int i = 0; i < categories.length; i++) {
             JButton button = new JButton(categories[i]);
             button.setFont(new Font("Arial", Font.BOLD, 14));
             button.setVerticalTextPosition(SwingConstants.BOTTOM); // Text under bilden
             button.setHorizontalTextPosition(SwingConstants.CENTER);
-            button.setIcon(new ImageIcon(imagePaths[i] )); // Lägg till ikon (symbol)
+            //button.setIcon(new ImageIcon(imagePaths[i] )); // Lägg till ikon (symbol)
             button.setBackground(Color.WHITE);
             button.setFocusPainted(false);
             panel.add(button);

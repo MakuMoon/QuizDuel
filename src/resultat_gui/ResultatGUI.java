@@ -172,14 +172,14 @@ public class ResultatGUI extends JFrame {
         return label;
     }
 
-    public static void main(String[] args) throws IOException {
-
-
-        SaveResult saveResults = new SaveResult();
-
-        ArrayList<Integer> trueTable = saveResults.readResult(true);
-        ArrayList<Integer> opponentsTrueTable = saveResults.readResult(false);
-
-        new ResultatGUI(0, 0, true, trueTable, opponentsTrueTable);
-    }
+//    public static void main(String[] args) throws IOException {
+//
+//
+//        SaveResult saveResults = new SaveResult();
+//
+//        ArrayList<Integer> trueTable = saveResults.readResult(true);
+//        ArrayList<Integer> opponentsTrueTable = saveResults.readResult(false);
+//
+//        new ResultatGUI(0, 0, true, trueTable, opponentsTrueTable);
+//    }
 }

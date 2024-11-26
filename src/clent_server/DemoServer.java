@@ -18,9 +18,6 @@ public class DemoServer {
             DemoServerThreads game = new DemoServerThreads(player1, player2);
             System.out.println("Starting game thread...");
             game.start();
-
-            player1.send("You are player 1");
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -34,6 +34,7 @@ public class DemoClient {
             client.in.readLine();
             SaveResult saveResult = new SaveResult();
             saveResult.createFile();
+            System.out.println("gui started");
             new ResultatGUI(client, 0, 0, true, saveResult.readResult(true), saveResult.readResult(false));
 
 

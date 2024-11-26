@@ -17,12 +17,10 @@ public class DemoServerThreads extends Thread{
     public void run() {
         System.out.println("Thread is running...");
 
-        player1.send("WELCOME Player 1");
-        System.out.println("before read");
-        System.out.println(player1.receive());
-        System.out.println("after read");
+        player2.send("Sports,Vehicles,History");
 
-        player1.send("Exit");
-        player2.send("Exit");
+        while(true){}
+
+
     }
 }
