@@ -1,5 +1,10 @@
 package clent_server;
 
+import db.DataBaseConnection;
+import model.Question;
+
+import java.util.ArrayList;
+
 public class DemoServerThreads extends Thread{
 
     DemoServerSidePlayer player1;
@@ -17,12 +22,45 @@ public class DemoServerThreads extends Thread{
     public void run() {
         System.out.println("Thread is running...");
 
-        player1.send("WELCOME Player 1");
-        System.out.println("before read");
-        System.out.println(player1.receive());
-        System.out.println("after read");
+        player1.send("true");
+        player2.send("false");
 
-        player1.send("Exit");
-        player2.send("Exit");
+        player1.send("true");
+
+        player1.send("Sports,Vehicles,History");
+        System.out.println("Categories sent to player1");
+
+        String category = player1.receive();
+        System.out.println("Category received from player1: " + category);
+
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        ArrayList<Question> questions = dataBaseConnection.getQuestions(category);
+
+        for (Question question : questions) {
+            player1.send(question.getQuestion());
+            player1.send(question.getAnswers().toString());
+            player1.send(question.getCorrectAnswer());
+        }
+
+        String answersDone = player1.receive();
+
+        player2.send(answersDone);
+
+        player2.send(category);
+
+        for (Question question : questions) {
+            player2.send(question.getQuestion());
+            player2.send(question.getAnswers().toString());
+            player2.send(question.getCorrectAnswer());
+        }
+    
+        player2.send("true");
+
+        player1.send("false");
+
+
+        while (true) {}
+
+
     }
 }

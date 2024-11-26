@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 public class DemoServer {
 
     public static void main(String[] args) throws IOException {
-        ServerSocket listener = new ServerSocket(24502);
+        ServerSocket listener = new ServerSocket(24503);
         System.out.println("Server is running...");
 
         try {
@@ -18,8 +18,8 @@ public class DemoServer {
             DemoServerThreads game = new DemoServerThreads(player1, player2);
             System.out.println("Starting game thread...");
             game.start();
-        } finally {
-            listener.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

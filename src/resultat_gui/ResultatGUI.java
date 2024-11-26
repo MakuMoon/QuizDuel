@@ -1,5 +1,8 @@
 package resultat_gui;
 
+import clent_server.DemoClient;
+import com.sun.tools.javac.Main;
+import gui.client.ClientGui;
 import gui.client.Kategori;
 
 
@@ -14,18 +17,34 @@ import java.util.ArrayList;
 
 public class ResultatGUI extends JFrame {
 
+    ArrayList<Integer> trueTable;
+    ArrayList<Integer> opponentsTrueTable;
+    DemoClient client;
     private int pointsPlayer1;
     private int pointsPlayer2;
     private boolean yourTurn;
-    ArrayList<Integer> trueTable;
-    ArrayList<Integer> opponentsTrueTable;
+    private boolean checkYourTurn;
 
-    public ResultatGUI(int pointsPlayer1, int pointsPlayer2, boolean yourTurn, ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) {
-        this.pointsPlayer1 = pointsPlayer1;
-        this.pointsPlayer2 = pointsPlayer2;
+    public ResultatGUI(DemoClient client, boolean yourTurn, ArrayList<Integer> trueTable, ArrayList<Integer> opponentsTrueTable) {
+        this.client = client;
         this.yourTurn = yourTurn;
         this.trueTable = trueTable;
         this.opponentsTrueTable = opponentsTrueTable;
+
+        for (int value : trueTable) {
+            if (value == 1) {
+                pointsPlayer1++;
+            }
+        }
+
+        for (int value : opponentsTrueTable) {
+            if (value == 1) {
+                pointsPlayer2++;
+            }
+        }
+
+
+        System.out.println("ResultatGUI");
 
         JPanel MainPanel = new JPanel(new BorderLayout());
         add(MainPanel);
@@ -46,6 +65,24 @@ public class ResultatGUI extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
+        try {
+            //Server checks if it is your turn
+            checkYourTurn = Boolean.parseBoolean(client.in.readLine());
+
+            MainPanel.remove(0);
+            MainPanel.add(createNorthPanel(checkYourTurn), BorderLayout.NORTH);
+
+            MainPanel.revalidate();
+            MainPanel.repaint();
+
+            if (!checkYourTurn) {
+                System.err.println("Server not sending correct turn");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -55,7 +92,7 @@ public class ResultatGUI extends JFrame {
         panelNorth.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         String turn = null;
-        if (yourTurn) {
+        if (yourTurn || checkYourTurn) {
             turn = "Din Tur";
         } else {
             turn = "Motstandarens Tur";
@@ -125,20 +162,33 @@ public class ResultatGUI extends JFrame {
         JPanel panelSouth = new JPanel(new BorderLayout());
         panelSouth.setBorder(BorderFactory.createEmptyBorder(10, 120, 10, 120));
 
+
         JButton playButton = new JButton("Spela");
         panelSouth.add(playButton, BorderLayout.SOUTH);
         playButton.addActionListener(l -> {
             if (l.getSource() == playButton) {
-                // Spelet börjar här.
 
+                if (yourTurn || checkYourTurn) {
 
-                this.dispose();
+                    this.dispose();
 
-                new Kategori();
+                    if (yourTurn) {
+                        new Kategori(client);
+                    } else {
+                        try {
+                            new ClientGui(client, client.in.readLine());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
 
 
             }
         });
+
+
         return panelSouth;
     }
 
@@ -169,14 +219,14 @@ public class ResultatGUI extends JFrame {
         return label;
     }
 
-    public static void main(String[] args) throws IOException {
-
-
-        SaveResult saveResults = new SaveResult();
-
-        ArrayList<Integer> trueTable = saveResults.readResult(true);
-        ArrayList<Integer> opponentsTrueTable = saveResults.readResult(false);
-
-        new ResultatGUI(0, 0, true, trueTable, opponentsTrueTable);
-    }
+//    public static void main(String[] args) throws IOException {
+//
+//
+//        SaveResult saveResults = new SaveResult();
+//
+//        ArrayList<Integer> trueTable = saveResults.readResult(true);
+//        ArrayList<Integer> opponentsTrueTable = saveResults.readResult(false);
+//
+//        new ResultatGUI(0, 0, true, trueTable, opponentsTrueTable);
+//    }
 }

@@ -1,5 +1,6 @@
 package gui.client;
 
+import clent_server.DemoClient;
 import model.Question;
 import db.DataBaseConnection;
 import resultat_gui.ResultatGUI;
@@ -15,31 +16,50 @@ import java.util.ArrayList;
 
 public class ClientGui extends JFrame implements ActionListener {
 
-    DataBaseConnection dataBaseConnection = new DataBaseConnection();
-
     private final JPanel gamePanel = new JPanel();
     private final JPanel mainPanel = new JPanel();
     private final JPanel upperPanel = new JPanel();
     private final JPanel lowerPanel = new JPanel();
     private final JLabel quizQuestionLabel = new JLabel("", JLabel.CENTER);
     private final JButton continueButton = new JButton("Fortsätt");
-    private int currentQuestionIndex = 0;
-    private int maxGamePlays = 3;
-
-    ArrayList<Question> quizQuestionList;
+    ArrayList<Question> quizQuestionList = new ArrayList<>();
     ArrayList<QuizButton> buttonList = new ArrayList<>();
     ArrayList<Integer> roundResult;
+    private int currentQuestionIndex = 0;
+    private int maxGamePlays = 3;
+    private DemoClient client;
 
-    public static void main(String[] args) throws Exception {
-        ClientGui clientGui = new ClientGui("Sports");
-    }
+    public ClientGui(DemoClient client, String category) throws Exception {
+        this.client = client;
 
-    public ClientGui(String category) throws Exception {
+
         roundResult = new ArrayList<>();
-        quizQuestionList = dataBaseConnection.getQuestions(category);
+        for (int i = 0; i < maxGamePlays; i++) {
+
+            {
+                String question = client.in.readLine();
+                String answers = client.in.readLine();
+                String correctAnswer = client.in.readLine();
+
+                String[] answersToArray = answers.substring(1, answers.length() - 1).split(", ");
+                ArrayList<String> answersList = new ArrayList<>();
+                for (String answer : answersToArray) {
+                    answersList.add(answer);
+                }
+
+                //String category, String question, String correct_answer, ArrayList<String> answers) {
+                Question questions = new Question(category, question, correctAnswer, answersList);
+
+                quizQuestionList.add(questions);
+            }
+        }
+
         setupPanels();
         configureMainPanel();
         setUpMainPanel();
+    }
+
+    public static void main(String[] args) throws Exception {
     }
 
     private void setupPanels() {
@@ -139,12 +159,14 @@ public class ClientGui extends JFrame implements ActionListener {
                 saveResult.saveQuestionRound(roundResult, true);
 
 
-
                 ArrayList<Integer> trueTable = saveResult.readResult(true);
                 ArrayList<Integer> opponentsTrueTable = saveResult.readResult(false);
 
+
+                client.out.println("true");
+
                 this.dispose();
-                new ResultatGUI(0,0, true, trueTable, opponentsTrueTable);
+                new ResultatGUI(client, false, trueTable, opponentsTrueTable);
 
                 return;
             } else {

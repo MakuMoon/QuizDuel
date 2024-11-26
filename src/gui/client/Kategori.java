@@ -1,12 +1,17 @@
 package gui.client;
 
+import clent_server.DemoClient;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Kategori {
-    public Kategori() {
+    private DemoClient client;
+    public Kategori(DemoClient client) {
+
+        this.client = client;
 
         JFrame frame = new JFrame("Välj en kategori");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,20 +23,28 @@ public class Kategori {
         panel.setLayout(new GridLayout(2, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        String[] categories = {"Sports", "Vehicles", "History"};
-        String[] imagePaths = {
-                "sport.png",      // Bild för Sport
-                "geography.png",  // Bild för Geografi
-                "music.png"       // Bild för Musik
-        };
 
+
+
+
+        String[] categories = new String[3];
+
+        try {
+
+            categories = client.in.readLine().split(",");
+
+
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < categories.length; i++) {
             JButton button = new JButton(categories[i]);
             button.setFont(new Font("Arial", Font.BOLD, 14));
             button.setVerticalTextPosition(SwingConstants.BOTTOM); // Text under bilden
             button.setHorizontalTextPosition(SwingConstants.CENTER);
-            button.setIcon(new ImageIcon(imagePaths[i] )); // Lägg till ikon (symbol)
+            //button.setIcon(new ImageIcon(imagePaths[i] )); // Lägg till ikon (symbol)
             button.setBackground(Color.WHITE);
             button.setFocusPainted(false);
             panel.add(button);
@@ -43,8 +56,10 @@ public class Kategori {
                 public void actionPerformed(ActionEvent e) {
 
                     try {
+                        client.out.println(category);
+
                         frame.dispose();
-                        new ClientGui(category);
+                        new ClientGui(client, category);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

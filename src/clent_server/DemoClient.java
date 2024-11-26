@@ -11,10 +11,10 @@ import java.net.Socket;
 
 public class DemoClient {
 
-    private static final int PORT = 24502;
+    private static final int PORT = 24503;
     Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
+    public BufferedReader in;
+    public PrintWriter out;
 
     public DemoClient(String serverAddress) throws IOException {
         System.out.println(serverAddress);
@@ -31,10 +31,17 @@ public class DemoClient {
         try {
             DemoClient client = new DemoClient("localhost");
 
+            SaveResult saveResult = new SaveResult();
+            saveResult.createFile();
 
-            while (true) {
-                client.play();
-            }
+            String response = client.in.readLine();
+            boolean isPlayer1 = Boolean.parseBoolean(response);
+
+            
+            System.out.println("gui started");
+            new ResultatGUI(client, isPlayer1, saveResult.readResult(true), saveResult.readResult(false));
+
+
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -44,9 +51,6 @@ public class DemoClient {
     private void play() throws IOException {
 
         String response;
-
-        //SaveResult saveResult = new SaveResult();
-        //new ResultatGUI(0, 0, true, saveResult.readResult(true), saveResult.readResult(false));
 
 
         response = in.readLine();
