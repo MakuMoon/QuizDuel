@@ -106,13 +106,16 @@ public class ResultatGUI extends JFrame {
         sidePanel.setPreferredSize(new Dimension(120, 0));
 
         for (int i = 0; i < rows * cols; i++) {
-            if (trueTable.get(i) == 1) {
-                sidePanel.add(new CirclePanel("Correct"));
-            } else if (trueTable.get(i) == 0) {
-                sidePanel.add(new CirclePanel("Incorrect"));
-            } else {
-                sidePanel.add(new CirclePanel("Not Answered"));
+            if (i < trueTable.size()) {
+                if (trueTable.get(i) == 1) {
+                    sidePanel.add(new CirclePanel("Correct"));
+                } else if (trueTable.get(i) == 0) {
+                    sidePanel.add(new CirclePanel("Incorrect"));
+                } else {
+                    sidePanel.add(new CirclePanel("Not Answered"));
+                }
             }
+
         }
 
         return sidePanel;
