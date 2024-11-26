@@ -22,7 +22,6 @@ public class ClientGui extends JFrame implements ActionListener {
     private final JPanel lowerPanel = new JPanel();
     private final JLabel quizQuestionLabel = new JLabel("", JLabel.CENTER);
     private final JButton continueButton = new JButton("Fortsätt");
-    DataBaseConnection dataBaseConnection = new DataBaseConnection();
     ArrayList<Question> quizQuestionList = new ArrayList<>();
     ArrayList<QuizButton> buttonList = new ArrayList<>();
     ArrayList<Integer> roundResult;
@@ -167,7 +166,7 @@ public class ClientGui extends JFrame implements ActionListener {
                 client.out.println("true");
 
                 this.dispose();
-                new ResultatGUI(client, 0, 0, false, trueTable, opponentsTrueTable);
+                new ResultatGUI(client, false, trueTable, opponentsTrueTable);
 
                 return;
             } else {

@@ -39,7 +39,7 @@ public class DemoClient {
 
             
             System.out.println("gui started");
-            new ResultatGUI(client, 0, 0, isPlayer1, saveResult.readResult(true), saveResult.readResult(false));
+            new ResultatGUI(client, isPlayer1, saveResult.readResult(true), saveResult.readResult(false));
 
 
         } catch (IOException e) {

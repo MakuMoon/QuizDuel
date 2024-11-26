@@ -36,10 +36,7 @@ public class DemoServerThreads extends Thread{
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         ArrayList<Question> questions = dataBaseConnection.getQuestions(category);
 
-        int i = 0;
         for (Question question : questions) {
-            System.out.println("Fråga:"+i++);
-
             player1.send(question.getQuestion());
             player1.send(question.getAnswers().toString());
             player1.send(question.getCorrectAnswer());
@@ -48,6 +45,19 @@ public class DemoServerThreads extends Thread{
         String answersDone = player1.receive();
 
         player2.send(answersDone);
+
+        player2.send(category);
+
+        for (Question question : questions) {
+            player2.send(question.getQuestion());
+            player2.send(question.getAnswers().toString());
+            player2.send(question.getCorrectAnswer());
+        }
+    
+        player2.send("true");
+
+        player1.send("false");
+
 
         while (true) {}
 
