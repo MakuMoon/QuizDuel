@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ClientGui extends JFrame implements ActionListener {
@@ -57,9 +58,6 @@ public class ClientGui extends JFrame implements ActionListener {
         setupPanels();
         configureMainPanel();
         setUpMainPanel();
-    }
-
-    public static void main(String[] args) throws Exception {
     }
 
     private void setupPanels() {
@@ -154,19 +152,42 @@ public class ClientGui extends JFrame implements ActionListener {
 
             if (currentQuestionIndex >= maxGamePlays) {
 
-                SaveResult saveResult = new SaveResult();
+                //SaveResult saveResult = new SaveResult();
 
-                saveResult.saveQuestionRound(roundResult, true);
+                //saveResult.saveQuestionRound(roundResult, true);
+
+                client.out.println(roundResult.get(0) + "," + roundResult.get(1) + "," + roundResult.get(2));
+
+                ArrayList<Integer> trueTable = new ArrayList<>();
+                ArrayList<Integer> opponentsTrueTable = new ArrayList<>();
+                try {
+                    String[] trueTableArray = client.in.readLine().split(",");
+                    String[] opponentTrueTableArray = client.in.readLine().split(",");
+
+                    for (String value : trueTableArray) {
+                        trueTable.add(Integer.parseInt(value));
+                    }
+
+                    for (String value : opponentTrueTableArray) {
+                        opponentsTrueTable.add(Integer.parseInt(value));
+                    }
 
 
-                ArrayList<Integer> trueTable = saveResult.readResult(true);
-                ArrayList<Integer> opponentsTrueTable = saveResult.readResult(false);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
 
-
+                //gives permission to the other client to play
                 client.out.println("true");
 
+                String yourTurn;
+                try {
+                    yourTurn = client.in.readLine();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 this.dispose();
-                new ResultatGUI(client, false, trueTable, opponentsTrueTable);
+                new ResultatGUI(client, Boolean.parseBoolean(yourTurn), trueTable, opponentsTrueTable);
 
                 return;
             } else {
