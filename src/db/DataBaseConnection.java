@@ -6,7 +6,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,15 +25,51 @@ public class DataBaseConnection {
     public DataBaseConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Driver loaded successfully.");
 
             con = DriverManager.getConnection(url, user, password);
+            System.out.println("Connection established successfully.");
+
             stmt = con.createStatement();
+            System.out.println("Statement created successfully.");
 
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("SQL Error: " + e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Class Not Found Error: " + e.getMessage());
         }
+    }
+
+    public ArrayList<Question> getQuestions(String category, boolean test) {
+        ArrayList<Question> questions = new ArrayList<>();
+
+        Question question1 = null;
+        Question question2 = null;
+        Question question3 = null;
+
+        if (category.equals("Sports")) {
+            question1 = new Question("Sports", "What is the most popular sport in the world?", "Soccer", new ArrayList<>(Arrays.asList("Soccer", "Basketball", "Tennis", "Golf")));
+            question2 = new Question("Sports", "What is the most popular sport in the USA?", "American Football", new ArrayList<>(Arrays.asList("Soccer", "Basketball", "Tennis", "American Football")));
+            question3 = new Question("Sports", "What is the most popular sport in Sweden?", "Soccer", new ArrayList<>(Arrays.asList("Soccer", "Basketball", "Tennis", "Golf")));
+        }
+        else if (category.equals("History")){
+            question1 = new Question("History", "When did World War II end?", "1945", new ArrayList<>(Arrays.asList("1945", "1939", "1940", "1941")));
+            question2 = new Question("History", "When did World War I end?", "1918", new ArrayList<>(Arrays.asList("1918", "1914", "1915", "1916")));
+            question3 = new Question("History", "When did the Cold War end?", "1991", new ArrayList<>(Arrays.asList("1991", "1989", "1990", "1992")));
+        }
+        else if (category.equals("Vehicles")){
+            question1 = new Question("Vehicles", "What is the most popular car brand in the world?", "Toyota", new ArrayList<>(Arrays.asList("Toyota", "Ford", "Chevrolet", "Honda")));
+            question2 = new Question("Vehicles", "What is the most popular car brand in the USA?", "Ford", new ArrayList<>(Arrays.asList("Toyota", "Ford", "Chevrolet", "Honda")));
+            question3 = new Question("Vehicles", "What is the most popular car brand in Sweden?", "Volvo", new ArrayList<>(Arrays.asList("Toyota", "Ford", "Chevrolet", "Volvo")));
+        }
+
+        questions.add(question1);
+        questions.add(question2);
+        questions.add(question3);
+
+
+        return questions;
+
     }
 
     public ArrayList<Question> getQuestions(String category) {
