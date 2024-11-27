@@ -74,6 +74,7 @@ public class ResultatGUI extends JFrame {
 
             MainPanel.revalidate();
             MainPanel.repaint();
+            this.setVisible(true);
 
             if (!checkYourTurn) {
                 System.err.println("Server not sending correct turn");

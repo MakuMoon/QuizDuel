@@ -44,7 +44,6 @@ public class DemoClient {
 
         } catch (IOException e) {
             e.printStackTrace();
-
         }
     }
 

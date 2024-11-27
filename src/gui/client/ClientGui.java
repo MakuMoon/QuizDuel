@@ -152,9 +152,9 @@ public class ClientGui extends JFrame implements ActionListener {
 
             if (currentQuestionIndex >= maxGamePlays) {
 
-                SaveResult saveResult = new SaveResult();
+                //SaveResult saveResult = new SaveResult();
 
-                saveResult.saveQuestionRound(roundResult, true);
+                //saveResult.saveQuestionRound(roundResult, true);
 
                 client.out.println(roundResult.get(0) + "," + roundResult.get(1) + "," + roundResult.get(2));
 
@@ -177,6 +177,7 @@ public class ClientGui extends JFrame implements ActionListener {
                     throw new RuntimeException(ex);
                 }
 
+                //gives permission to the other client to play
                 client.out.println("true");
 
                 String yourTurn;
@@ -186,7 +187,7 @@ public class ClientGui extends JFrame implements ActionListener {
                     throw new RuntimeException(ex);
                 }
                 this.dispose();
-                new ResultatGUI(client, false, trueTable, opponentsTrueTable);
+                new ResultatGUI(client, Boolean.parseBoolean(yourTurn), trueTable, opponentsTrueTable);
 
                 return;
             } else {
