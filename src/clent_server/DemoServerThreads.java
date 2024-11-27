@@ -156,8 +156,6 @@ public class DemoServerThreads extends Thread {
             secondPlayer = player2;
             firstPlayer = player1;
         }
-        System.out.println(firstPlayer);
-        System.out.println(secondPlayer);
 
         firstPlayer.send("true");
 
