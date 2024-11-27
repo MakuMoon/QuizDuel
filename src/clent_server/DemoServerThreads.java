@@ -63,6 +63,7 @@ public class DemoServerThreads extends Thread {
         //if yourTurn should be true AND category should show up!
         player1.send("false");
 
+        player1.send("false");
 
         //player1 is done and player2 is allowed to proceed
         player2.send(answersDone);
@@ -99,6 +100,27 @@ public class DemoServerThreads extends Thread {
         System.out.println("Categories sent to player2");
 
         category = player2.receive();
+
+        questions = dataBaseConnection.getQuestions(category, true);
+
+        //send questions to player2
+        for (Question question : questions) {
+            player2.send(question.getQuestion());
+            player2.send(question.getAnswers().toString());
+            player2.send(question.getCorrectAnswer());
+        }
+
+        //recive result of answers
+        score = player2.receive();
+
+        player2.setScore(score);
+
+        player2.send(player2.toString());
+        player2.send(player1.toString());
+
+        player2.send("false");
+        player2.send("false");
+
 
         while (true) {
         }
