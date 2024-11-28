@@ -16,9 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Question;
 
 public class DataBaseConnection {
-    private String url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7746033";
-    private String user = "sql7746033";
-    private String password = "zZPWl1Eb7p";
+    private String url = "jdbc:mysql://sql8.freesqldatabase.com:3306/sql8748135";
+    private String user = "sql8748135";
+    private String password = "WbPn9wWkfN";
     private Connection con;
     private Statement stmt;
 
@@ -40,7 +40,12 @@ public class DataBaseConnection {
         }
     }
 
-    public ArrayList<Question> getQuestions(String category, boolean test) {
+    public static void main(String[] args) {
+        DataBaseConnection dbc = new DataBaseConnection();
+        dbc.loadQuestions();
+    }
+
+    public ArrayList<Question> getQuestions(String category) {
         ArrayList<Question> questions = new ArrayList<>();
 
         Question question1 = null;
@@ -72,7 +77,7 @@ public class DataBaseConnection {
 
     }
 
-    public ArrayList<Question> getQuestions(String category) {
+    public ArrayList<Question> getQuestions(String category, boolean test) {
         ArrayList<Question> questions = new ArrayList<>();
         String sql = "SELECT * FROM questions WHERE category = '" + category + "'";
 
